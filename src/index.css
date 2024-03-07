@@ -1,0 +1,10 @@
+* {
+    font-size: 17px;
+}
+
+.cardHeroCRUD{
+    position: relative;
+    width: 80%;
+    bottom: 50px;
+    transform: translateX(12%);
+}

@@ -14,6 +14,11 @@ import Users from "./pages/admin/users/Users.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 import CreateCompany from "./pages/admin/Companies/components/CreateCompany.jsx";
 
+import FormVolunteer from "./pages/forms/FormVolunteer.jsx";
+import FormOrganization from "./pages/forms/FormOrganization.jsx";
+import DetailVolunteering from "./pages/volunteering/components/DetailVolunteering.jsx";
+import CreateVolunteering from "./pages/admin/adminVolunteering/components/CreateVolunteering.jsx";
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -27,7 +32,10 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="/volunteering" element={<Volunteering />} />
+              <Route path="/volunteering/:volunteeringId" element={<DetailVolunteering/>}/>
               <Route path="/activities" element={<Activities />} />
+              <Route path="/form-volunteer" element={<FormVolunteer />} />
+              <Route path="/form-organization" element={<FormOrganization />} />
             </Route>
 
             <Route path="/admin" element={<AdminLayout />}>
@@ -35,6 +43,10 @@ function App() {
               <Route
                 path="/admin/volunteering"
                 element={<AdminVoluntering />}
+              />
+              <Route
+                path="/admin/volunteering/create"
+                element={<CreateVolunteering />}
               />
               <Route path="/admin/activities" element={<AdminActivities />} />
               <Route path="/admin/volunteers" element={<Volunteers />} />

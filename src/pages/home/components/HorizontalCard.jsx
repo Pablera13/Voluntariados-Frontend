@@ -32,7 +32,7 @@ export default function HorizontalImage({image, title, text, textButton, linkBut
 
             <div className="d-flex justify-content-end">
               <Link to={linkButton}>
-                <Button>{textButton}</Button>
+                <Button variant="success">{textButton}</Button>
               </Link>
             </div>
           </MDBCardBody>

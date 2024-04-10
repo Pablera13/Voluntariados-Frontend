@@ -47,6 +47,7 @@ function Companies() {
               <th>Nombre</th>
               <th>Direccion</th>
               <th>Cuenta de banco</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -58,6 +59,7 @@ function Companies() {
                   <th>{item.name}</th>
                   <th>{item.address}</th>
                   <th>{item.bankaccount}</th>
+                  <th>{item.verified}</th>
                   <th>
                     <Button>Editar</Button>
                   </th>

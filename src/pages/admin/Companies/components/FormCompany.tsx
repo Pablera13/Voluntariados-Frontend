@@ -4,6 +4,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { CompanySchema, FormDataCompany } from "../../../../types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, Button, Row, Col, Form } from "react-bootstrap";
+import { useMutation } from "react-query";
+import { createCompany } from "../../../../services/CompanyService";
 
 function FormCompany() {
   const {
@@ -15,10 +17,21 @@ function FormCompany() {
     resolver: zodResolver(CompanySchema),
   });
 
-  const onSubmit: SubmitHandler<FormDataCompany> = async (
+  const mutation = useMutation("organization", createCompany)
+
+  const onSubmit: SubmitHandler<FormDataCompany> =  (
     data
   ) => {
     console.log("SUCCESS", data);
+    let newOrganization = {
+      cedula: 1,
+      name: 'Prueba',
+      address:'Prueba',
+      bankaccount: 1,
+      verified: false,
+      userId: 1
+    }
+    mutation.mutateAsync(newOrganization);
   };
 
   return (
@@ -33,7 +46,7 @@ function FormCompany() {
             <input
               type="number"
               className="form-control"
-              {...register('cedula')}
+              {...register('cedula' ,{ valueAsNumber: true })}
               placeholder="Cedula de la compañia"
             />
             {errors.cedula && (
@@ -76,11 +89,11 @@ function FormCompany() {
               type="number"
               className="form-control"
               placeholder="Cuenta bancaria"
-              {...register('bankaccount')}
+              {...register('bankaccount', { valueAsNumber: true })}
             />
             {errors.name && (
               <small  className="form-text text-danger">
-                {errors.name?.message}
+                {errors.bankaccount?.message}
               </small>
             )}
           </div>

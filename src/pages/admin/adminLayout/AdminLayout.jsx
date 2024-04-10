@@ -39,7 +39,7 @@ function AdminLayout() {
               to="/admin/volunteering"
               activeClassName="activeClicked"
             >
-              <CDBSidebarMenuItem icon="table">
+              <CDBSidebarMenuItem icon="user-check">
                 Voluntariados
               </CDBSidebarMenuItem>
             </NavLink>
@@ -49,7 +49,7 @@ function AdminLayout() {
               to="/admin/activities"
               activeClassName="activeClicked"
             >
-              <CDBSidebarMenuItem icon="table">Actividades</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="binoculars">Actividades</CDBSidebarMenuItem>
             </NavLink>
 
             <NavLink
@@ -65,12 +65,10 @@ function AdminLayout() {
               to="/admin/companies"
               activeClassName="activeClicked"
             >
-              <CDBSidebarMenuItem icon="user">Empresas</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="building">Empresas</CDBSidebarMenuItem>
             </NavLink>
 
-            <NavLink exact to="/admin/users" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Usuarios</CDBSidebarMenuItem>
-            </NavLink>
+            
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
@@ -83,9 +81,9 @@ function AdminLayout() {
             }}
           >
             <Link to={'/'}>
-              <Button>Volver a inicio</Button>
+              <Button variant="dark"><i class="fa fa-arrow-left" aria-hidden="true"></i></Button>
             </Link>
-            Sidebar Footer
+           
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>

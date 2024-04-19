@@ -40,7 +40,7 @@ function Volunteering() {
                 <h4>{item.projectName}</h4>
                 <h6>{item.category}</h6>
                 <p>
-                  La fecha de inicio del voluntariado es: {item.startDate} y termina en: {item.finishDate}
+                  La fecha de inicio del voluntariado es: {(item.startDate).substr(0,10)} y termina en: {(item.finishDate).substr(0,10)}
                 </p>
                 <Link to={`/volunteering/${item.id}`}>
                 <Button variant="outline-warning">Detalles</Button>

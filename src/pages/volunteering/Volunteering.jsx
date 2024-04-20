@@ -35,7 +35,7 @@ function Volunteering() {
       <Row>
         {data?.map((item) => (
           <Col key={item.id} xs={12} md={6}>
-            <Card className="mb-3">
+            <Card className="mb-3 card">
               <Card.Body>
                 <h4>{item.projectName}</h4>
                 <h6>{item.category}</h6>
@@ -43,7 +43,7 @@ function Volunteering() {
                   La fecha de inicio del voluntariado es: {(item.startDate).substr(0,10)} y termina en: {(item.finishDate).substr(0,10)}
                 </p>
                 <Link to={`/volunteering/${item.id}`}>
-                <Button variant="outline-warning">Detalles</Button>
+                <button className="acceptButton">Ver</button>
                 </Link>
               </Card.Body>
             </Card>

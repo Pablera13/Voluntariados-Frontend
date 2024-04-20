@@ -59,7 +59,7 @@ function FormVolunteer() {
               
             </Form.Group>
 
-            <Button variant="outline-warning"> Subir </Button>
+            <button className="acceptButton"> Subir </button>
           </Form>
         </Card.Body>
       </Card>

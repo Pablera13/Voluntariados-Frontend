@@ -14,24 +14,27 @@ function Layout() {
           <Navbar.Brand href="/"><img src={Logo} alt="" className="w-25"/></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-end">
-            <Nav.Link href="/" className="mx-1">
+            <Nav.Link href="/" className="mx-1 navItem">
               Inicio
             </Nav.Link>
-            <Nav.Link href="/volunteering" className="mx-1">
+            <Nav.Link href="/volunteering" className="mx-1 navItem">
               Voluntariado
             </Nav.Link>
-            <Nav.Link href="/activities" className="mx-1">
+            <Nav.Link href="/activities" className="mx-1 navItem">
               Actividades
             </Nav.Link>
-            <NavDropdown title="Formularios" id="basic-nav-dropdown" className="mx-1">
+            <Nav.Link href="/organization" className="mx-1 navItem">
+              Organizaciones
+            </Nav.Link>
+            <NavDropdown title="Formularios" id="basic-nav-dropdown" className="mx-1 navItem">
               <NavDropdown.Item href="/form-volunteer">Ser voluntario</NavDropdown.Item>
               <NavDropdown.Item href="/form-organization">Ser organizacion</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown title="Perfil" id="basic-nav-dropdown" className="mx-1">
+            <NavDropdown title="Perfil" id="basic-nav-dropdown" className="mx-1 navItem">
               <NavDropdown.Item href="/login">Iniciar Sesion</NavDropdown.Item>
               <NavDropdown.Item href="/admin">Administrar</NavDropdown.Item>
-              <NavDropdown.Item href="/miperfil/:">Mi perfil</NavDropdown.Item>
+              <NavDropdown.Item href="/profile">Mi perfil</NavDropdown.Item>
             </NavDropdown>
           </Navbar.Collapse>
         </Container>

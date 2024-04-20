@@ -18,6 +18,9 @@ import FormVolunteer from "./pages/forms/FormVolunteer.jsx";
 import FormOrganization from "./pages/forms/FormOrganization.jsx";
 import DetailVolunteering from "./pages/volunteering/components/DetailVolunteering.jsx";
 import CreateVolunteering from "./pages/admin/adminVolunteering/components/CreateVolunteering.jsx";
+import Profile from "./pages/profile/Profile.jsx";
+import Organization from "./pages/organization/Organization.jsx";
+import DetailOrganization from "./pages/organization/components/DetailOrganization.jsx";
 
 const queryClient = new QueryClient();
 
@@ -34,8 +37,12 @@ function App() {
               <Route path="/volunteering" element={<Volunteering />} />
               <Route path="/volunteering/:volunteeringId" element={<DetailVolunteering/>}/>
               <Route path="/activities" element={<Activities />} />
+              <Route path="/organization" element={<Organization/>}/>
               <Route path="/form-volunteer" element={<FormVolunteer />} />
               <Route path="/form-organization" element={<FormOrganization />} />
+              <Route path="/profile" element={<Profile/>}/>
+              <Route path="/organization/:organizationId" element={<DetailOrganization/>}/>
+
             </Route>
 
             <Route path="/admin" element={<AdminLayout />}>

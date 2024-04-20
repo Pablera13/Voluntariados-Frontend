@@ -17,6 +17,8 @@ import CreateCompany from "./pages/admin/Companies/components/CreateCompany.jsx"
 import FormVolunteer from "./pages/forms/FormVolunteer.jsx";
 import FormOrganization from "./pages/forms/FormOrganization.jsx";
 import DetailVolunteering from "./pages/volunteering/components/DetailVolunteering.jsx";
+import DetailActivities from "./pages/activities/components/DetailActivities.jsx";
+
 import CreateVolunteering from "./pages/admin/adminVolunteering/components/CreateVolunteering.jsx";
 
 const queryClient = new QueryClient();
@@ -33,7 +35,10 @@ function App() {
               <Route index element={<Home />} />
               <Route path="/volunteering" element={<Volunteering />} />
               <Route path="/volunteering/:volunteeringId" element={<DetailVolunteering/>}/>
+
               <Route path="/activities" element={<Activities />} />
+              <Route path="/activities/:activitiesId" element={<DetailActivities/>}/>
+
               <Route path="/form-volunteer" element={<FormVolunteer />} />
               <Route path="/form-organization" element={<FormOrganization />} />
             </Route>

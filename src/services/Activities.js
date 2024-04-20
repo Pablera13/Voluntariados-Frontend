@@ -5,6 +5,11 @@ export const  getEvents = async () => {
     return data;
 }
 
+export const getActivityById = async (id) => {
+    let data = await api.get(`event/${id}`).then(result => result.data);
+    return data;
+}
+
 export const createEvent = async (event) => {
     let data = await api.post('event', event).then(result => result.data);
     return data;

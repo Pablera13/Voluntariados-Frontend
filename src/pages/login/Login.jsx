@@ -23,7 +23,7 @@ function Login() {
                 <input class="form-control"/>
               </div>
             </div>
-            <button className="btn btn-primary mt-3">Subir</button>
+            <button className="acceptButton mt-3">Subir</button>
           </div>
         </div>
       </div>

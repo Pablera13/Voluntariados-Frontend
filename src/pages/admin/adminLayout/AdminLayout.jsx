@@ -30,9 +30,9 @@ function AdminLayout() {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/admin" activeClassName="activeClicked">
+            {/* <NavLink exact to="/admin" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Panel</CDBSidebarMenuItem>
-            </NavLink>
+            </NavLink> */}
 
             <NavLink
               exact

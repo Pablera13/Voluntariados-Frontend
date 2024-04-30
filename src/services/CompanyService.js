@@ -9,3 +9,9 @@ export const createCompany = async (company) => {
     let data = await api.post('organization', company).then(result => result.data);
     return data;
 }
+
+export const  getCompanyById = async (organizationId) => {
+    let data = await api.get(`organization/${organizationId}`).then(result => result.data);
+    return data;
+}
+

@@ -33,8 +33,8 @@ function FormOrganization() {
             </Form.Group>
            
             <Form.Group className="mb-3" >
-              <Form.Label>Cuenta bancaaria</Form.Label>
-              <Form.Control type="text" placeholder="" />
+              <Form.Label>Cuenta bancaria</Form.Label>
+              <Form.Control type="text" placeholder="Ingrese la cuenta bancaria" />
               
             </Form.Group>
             <Form.Group className="mb-3" >
@@ -43,7 +43,7 @@ function FormOrganization() {
               
             </Form.Group>
 
-            <Button variant="outline-warning"> Subir </Button>
+            <button className='acceptButton'> Subir </button>
           </Form>
         </Card.Body>
       </Card>

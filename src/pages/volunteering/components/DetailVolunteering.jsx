@@ -4,6 +4,7 @@ import { Container, Card, Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getVolunteeringById } from "../../../services/Volunteering";
+import RegisterModal from "./RegisterModal";
 
 
 function DetailVolunteering() {
@@ -37,19 +38,20 @@ function DetailVolunteering() {
             </Card.Header>
             <Card.Body>
               <h3>{data.projectName}</h3>
-              <span>Fecha: {data.startDate} - {data.finishDate}</span>
+              <span>Fecha: {(data.startDate).substr(0,10)} - {(data.finishDate).substr(0,10)}</span>
               <hr />
               <p>{data.description}</p>
 
               <p>{data.contact}</p>
-              <p>Cupos disponibles maximos: {data.quotas}</p>
+              <p>Cupos máximos: {data.quotas}</p>
+              <p>Cupos restantes: {data.quotas - data.volunteeringvolunteers.length}</p>
 
               <h5>Requisitos</h5>
-              <div className="card mb-2">test1</div>
-              <div className="card mb-2">test2</div>
-              <div className="card mb-2">test2</div>
+              <div className="mb-2">{data.requirements}</div>
+              <div className="d-flex justify-content-end mt-3">
 
-              <Button>Inscribirse</Button>
+              <RegisterModal/>
+              </div>
             </Card.Body>
           </Card>
         )}

@@ -20,12 +20,12 @@ function Section() {
             is a wider card with supporting text below as anatural
           </p>
           <Link to={'/volunteering'}>
-          <Button variant="outline-warning">Ser parte</Button>
+          <button className="acceptButton">Ser parte</button>
           </Link>
         </div>
       </div>
       <div className="col">
-        <div className="card pb-3 px-3">
+        <div className="card card-home pb-3 px-3">
           <i
             class="fa fa-address-book fa-5x icon-section d-flex justify-content-center align-items-center"
             aria-hidden="true"
@@ -37,7 +37,7 @@ function Section() {
             is a wider card with supporting text below as anatural
           </p>
           <Link to={'/activities'}>
-          <Button variant="outline-warning">Ser parte</Button>
+          <button className="acceptButton">Ser parte</button>
           </Link>
         </div>
       </div>

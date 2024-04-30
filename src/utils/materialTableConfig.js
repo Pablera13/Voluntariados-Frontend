@@ -102,6 +102,7 @@ const useCustomMaterialTable = ({ columns, data, isLoading, isLoadingError, isFe
     localization: localizationConfig,
     positionActionsColumn: 'last',
     positionCreatingRow: "top",
+    enableEditing: true,
     autoResetPageIndex: false,
     enableColumnOrdering: true,
     enableRowPinning: true,
@@ -110,6 +111,10 @@ const useCustomMaterialTable = ({ columns, data, isLoading, isLoadingError, isFe
     enableColumnPinning: true,
     enableFacetedValues: true,
     enableRowActions: true,
+    createDisplayMode: 'row', 
+    editDisplayMode: 'cell', 
+    enableCellActions: true,
+    enableClickToCopy: 'context-menu',
     initialState: {
       showColumnFilters: false,
       showGlobalFilter: true,

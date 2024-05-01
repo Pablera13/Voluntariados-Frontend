@@ -11,10 +11,10 @@ function Layout({children}) {
     <>
       <Navbar expand="lg" sticky="top" className="shadow" bg="light" variant="light">
         <Container>
-          <Navbar.Brand href="/home"><img src={Logo} alt="" className="w-25"/></Navbar.Brand>
+          <Navbar.Brand href="/"><img src={Logo} alt="" className="w-25"/></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-end">
-            <Nav.Link href="/home" className="mx-1 navItem">
+            <Nav.Link href="/" className="mx-1 navItem">
               Inicio
             </Nav.Link>
             <Nav.Link href="/volunteering" className="mx-1 navItem">
@@ -33,7 +33,7 @@ function Layout({children}) {
 
             <NavDropdown title="Perfil" id="basic-nav-dropdown" className="mx-1 navItem">
               <NavDropdown.Item href="/login">Iniciar Sesion</NavDropdown.Item>
-              <NavDropdown.Item href="/admin">Administrar</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/panel">Administrar</NavDropdown.Item>
               <NavDropdown.Item href="/profile">Mi perfil</NavDropdown.Item>
               <NavDropdown.Item href="/logout">Cerrar Sesion</NavDropdown.Item>
             </NavDropdown>

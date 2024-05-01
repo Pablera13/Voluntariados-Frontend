@@ -30,12 +30,16 @@ const Routes = () => {
   // Define public routes accessible to all users
   const routesForPublic = [
     {
-      path: "/home",
+      path: "/",
       element: (
         <Layout>
           <Home />
         </Layout>
       ),
+    },
+    {
+      path: "/login",
+      element: <Login />,
     },
     {
       path: "/form-volunteer",
@@ -184,17 +188,18 @@ const Routes = () => {
 
   // Define routes accessible only to non-authenticated users
   const routesForNotAuthenticatedOnly = [
+    
     {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/home",
+      path: "/",
       element: (
         <Layout>
           <Home />
         </Layout>
       ),
+    },
+    {
+      path: "/login",
+      element: <Login />,
     },
     {
       path: "/form-volunteer",

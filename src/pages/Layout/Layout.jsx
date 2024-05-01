@@ -6,15 +6,15 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { Outlet, Link } from "react-router-dom";
 import Logo from '../../assets/logo.png'
 
-function Layout() {
+function Layout({children}) {
   return (
     <>
       <Navbar expand="lg" sticky="top" className="shadow" bg="light" variant="light">
         <Container>
-          <Navbar.Brand href="/"><img src={Logo} alt="" className="w-25"/></Navbar.Brand>
+          <Navbar.Brand href="/home"><img src={Logo} alt="" className="w-25"/></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-end">
-            <Nav.Link href="/" className="mx-1 navItem">
+            <Nav.Link href="/home" className="mx-1 navItem">
               Inicio
             </Nav.Link>
             <Nav.Link href="/volunteering" className="mx-1 navItem">
@@ -35,12 +35,13 @@ function Layout() {
               <NavDropdown.Item href="/login">Iniciar Sesion</NavDropdown.Item>
               <NavDropdown.Item href="/admin">Administrar</NavDropdown.Item>
               <NavDropdown.Item href="/profile">Mi perfil</NavDropdown.Item>
+              <NavDropdown.Item href="/logout">Cerrar Sesion</NavDropdown.Item>
             </NavDropdown>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-      <Outlet />
+      <main>{children}</main>
     </>
   );
 }

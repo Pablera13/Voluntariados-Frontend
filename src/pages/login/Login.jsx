@@ -1,8 +1,21 @@
 import React, { useState } from "react";
 import Logo from '../../assets/logo.png'
 import "../../style/login.css";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    setToken("this is a test token");
+    navigate("/home", { replace: true });
+  };
+
+  
+
+ 
   return (
     <div className="body-login d-flex justify-content-center align-items-center">
       <div className="card shadow w-50 py-5">
@@ -23,7 +36,7 @@ function Login() {
                 <input class="form-control"/>
               </div>
             </div>
-            <button className="acceptButton mt-3">Subir</button>
+            <button className="acceptButton mt-3" onClick={handleLogin}>Subir</button>
           </div>
         </div>
       </div>

@@ -88,9 +88,9 @@ const MaterialTable = () => {
         header: "Fecha",
         enableClickToCopy: true,
         enableEditing: false,
-        Cell: ({ row }) => { 
-          return (<span>{format(new Date(row.original.date), "yyyy-MM-dd")}</span>);
-        }
+        // Cell: ({ row }) => { 
+        //   return (<span>{format(new Date(row.original.date), "yyyy-MM-dd")}</span>);
+        // }
       },
       {
         accessorKey: "address",

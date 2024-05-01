@@ -1,36 +1,24 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home.jsx";
-import Layout from "./pages/Layout/Layout.jsx";
-import Login from "./pages/login/Login.jsx";
-import Volunteering from "./pages/volunteering/Volunteering.jsx";
-import Activities from "./pages/activities/Activities.jsx";
-import AdminLayout from "./pages/admin/adminLayout/AdminLayout.jsx";
-import AdminPanel from "./pages/admin/AdminPanel.jsx";
-import AdminVoluntering from "./pages/admin/adminVolunteering/AdminVolunteering.jsx";
-import AdminActivities from "./pages/admin/adminActivities/AdminActivities.jsx";
-import Companies from "./pages/admin/Companies/Companies.jsx";
-import Volunteers from "./pages/admin/Volunteers/Volunteers.jsx";
-import Users from "./pages/admin/users/Users.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
-import CreateCompany from "./pages/admin/Companies/components/CreateCompany.jsx";
-
-import FormVolunteer from "./pages/forms/FormVolunteer.jsx";
-import FormOrganization from "./pages/forms/FormOrganization.jsx";
-import DetailVolunteering from "./pages/volunteering/components/DetailVolunteering.jsx";
-import DetailActivities from "./pages/activities/components/DetailActivities.jsx";
-
-import CreateVolunteering from "./pages/admin/adminVolunteering/components/CreateVolunteering.jsx";
-import Profile from "./pages/profile/Profile.jsx";
-import Organization from "./pages/organization/Organization.jsx";
-import DetailOrganization from "./pages/organization/components/DetailOrganization.jsx";
-
+import AuthProvider from "./context/AuthContext";
+import Routes from "./utils/Routes";
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </QueryClientProvider>
+    </>
+  );
+}
+
+export default App;
+
+{
+  /* <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
 
@@ -67,10 +55,5 @@ function App() {
               <Route path="/admin/users" element={<Users />} />
             </Route>
           </Routes>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </>
-  );
+        </BrowserRouter> */
 }
-
-export default App;

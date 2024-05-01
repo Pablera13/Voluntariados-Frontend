@@ -10,7 +10,7 @@ function Login() {
 
   const handleLogin = () => {
     setToken("this is a test token");
-    navigate("/home", { replace: true });
+    navigate("/", { replace: true });
   };
 
   

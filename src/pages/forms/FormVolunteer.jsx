@@ -1,9 +1,32 @@
 import React from "react";
 import { Container, Card, Form, Row, Col, Button } from "react-bootstrap";
 import HeroHeader from "../../components/HeroHeader";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { getIdValidate } from "../../services/GeneralService";
 
 
 function FormVolunteer() {
+
+  const [dataId, setDataId] = useState(0);
+  const [data, setData] = useState();
+
+    useEffect(() => {
+      const getData = setTimeout(() => {
+        const get = async () => {
+          const object  = await getIdValidate(dataId);
+          console.log(object);
+          setData(object.results[0])
+        }
+    get()
+      }, 2000)
+  
+      return () => clearTimeout(getData)
+    }, [dataId])
+
+    
+
+
   return (
     <>
     <HeroHeader header={'Formulario para ser voluntario'} text={'Con este formulario podras realizar la solicitud para poder llegar a ser voluntario activo'}
@@ -21,11 +44,13 @@ function FormVolunteer() {
               <Form.Control
                 type="email"
                 placeholder="Ingrese el numero de cedula"
+                onChange={(event) => setDataId(event.target.value)}
                 />
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Label>Nombre</Form.Label>
-              <Form.Control type="email" placeholder="Ingrese el nombre" />
+              <Form.Control type="email"
+             value={data ? data.firstname : ''} disabled/>
               
             </Form.Group>
             <Row>
@@ -34,7 +59,9 @@ function FormVolunteer() {
                   <Form.Label>Primer apellido</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="Ingrese el numero de cedula"
+                    placeholder=""
+                    value={data ? data.lastname1 : ''}
+                    disabled
                     />
                 </Form.Group>
               </Col>
@@ -43,7 +70,8 @@ function FormVolunteer() {
                   <Form.Label>Segundo apellido</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="Ingrese el numero de cedula"
+                    disabled
+                    value={data ? data.lastname2 : ''}
                     />
                 </Form.Group>
               </Col>

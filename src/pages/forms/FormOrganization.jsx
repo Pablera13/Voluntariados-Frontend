@@ -1,8 +1,26 @@
 import React from 'react'
 import { Container, Card, Form, Row, Col, Button } from "react-bootstrap";
 import HeroHeader from '../../components/HeroHeader';
+import { useState, useEffect } from "react";
+import { getIdValidate } from "../../services/GeneralService";
+
 
 function FormOrganization() {
+  const [dataId, setDataId] = useState(0);
+  const [data, setData] = useState();
+
+    useEffect(() => {
+      const getData = setTimeout(() => {
+        const get = async () => {
+          const object  = await getIdValidate(dataId);
+          console.log(object);
+          setData(object.results[0])
+        }
+    get()
+      }, 2000)
+  
+      return () => clearTimeout(getData)
+    }, [dataId])
   return (
     <>
     <HeroHeader header={'Formulario para integrar tu organizacion'} text={'Con este formulario podras realizar la solicitud para poder llegar a ser una organizacion activa'}
@@ -22,13 +40,14 @@ function FormOrganization() {
             <Form.Group className="mb-3">
               <Form.Label>Numero de cedula</Form.Label>
               <Form.Control
-                type="email"
+                
                 placeholder="Ingrese el numero de cedula juridica"
+                onChange={(event) => setDataId(event.target.value)}
                 />
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Label>Nombre</Form.Label>
-              <Form.Control type="email" placeholder="Ingrese el nombre" />
+              <Form.Control type="email" placeholder="Ingrese el nombre" value={data ? data.fullname:''} disabled/>
               
             </Form.Group>
            

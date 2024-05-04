@@ -13,9 +13,11 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { FaFilePdf } from "react-icons/fa6";
-import { getVolunteerings } from "../../../services/Volunteering";
+import { getVolunteerings, deleteVolunteering } from "../../../services/Volunteering";
+import swal from 'sweetalert';
 
 const MaterialTable = () => {
+  
   const [data, setData] = useState([]);
   const [validationErrors, setValidationErrors] = useState({});
   const [editedData, setEditedData] = useState({});
@@ -38,34 +40,30 @@ const MaterialTable = () => {
     isLoading: isLoading,
   } = getVolunteerings();
 
-  // const handleUpdate = async (updatedData) => {
-  //   try {
-  //     await updateVolunteer(updatedData);
-  //     setEditedData({});
-  //   } catch (error) {
-  //     console.error("Error updating data:", error);
-  //   }
-  // };
-
-  // const handleDelete = async (id) => {
-  //   try {
-  //     await deleteVolunteer(id);
-  //     const newData = data.filter((item) => item.id !== id);
-  //     setData(newData);
-  //   } catch (error) {
-  //     console.error("Error deleting data:", error);
-  //   }
-  // };
-
-
-//   projectName varchar(500) 
-// startDate datetime 
-// finishDate datetime 
-// category varchar(255) 
-// quotas int 
-// description varchar(500) 
-// requirements varchar(500) 
-// contact varchar(500)
+  const handleDelete = async (id) => {
+    swal({
+      title: "¿Está seguro?",
+      text: "El registro será eliminado",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          await deleteVolunteering(id);
+          const newData = data.filter((item) => item.id !== id);
+          setData(newData);
+          swal("Eliminado con éxito", {
+            icon: "success", 
+          });
+        } catch (error) {
+          console.error("Error deleting data:", error);} 
+      } else {
+        swal("El registro no se eliminó");
+      }
+    });
+  };
 
 
   const columns = useMemo(
@@ -148,16 +146,10 @@ const MaterialTable = () => {
 
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Actualizar datos">
-          <Button 
-          // onClick={() => handleUpdate(row.original)}
-          >
-            <FaEdit />
-          </Button>
-        </Tooltip>
+
         <Tooltip title="Eliminar">
           <Button 
-          // onClick={() => handleDelete(row.original.id)}
+          onClick={() => handleDelete(row.original.id)}
           >
             <MdDelete />
           </Button>
@@ -188,6 +180,7 @@ const queryClient = new QueryClient();
 const AdminVolunteering = () => (
   <>
 <div className="text-center">
+  {}
     <HeroCRUD text={"Voluntariados"} />
     </div>
     <Card className="cardHeroCRUD shadow">

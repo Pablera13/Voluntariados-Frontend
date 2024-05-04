@@ -13,7 +13,8 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { FaFilePdf } from "react-icons/fa6";
-import { getEvents } from "../../../services/Activities.js";
+import { getEvents, deleteActivity} from "../../../services/Activities.js";
+import swal from 'sweetalert';
 
 const MaterialTable = () => {
   const [data, setData] = useState([]);
@@ -38,24 +39,30 @@ const MaterialTable = () => {
     isLoading: isLoading,
   } = getEvents();
 
-  // const handleUpdate = async (updatedData) => {
-  //   try {
-  //     await updateVolunteer(updatedData);
-  //     setEditedData({});
-  //   } catch (error) {
-  //     console.error("Error updating data:", error);
-  //   }
-  // };
-
-  // const handleDelete = async (id) => {
-  //   try {
-  //     await deleteVolunteer(id);
-  //     const newData = data.filter((item) => item.id !== id);
-  //     setData(newData);
-  //   } catch (error) {
-  //     console.error("Error deleting data:", error);
-  //   }
-  // };
+  const handleDelete = async (id) => {
+    swal({
+      title: "¿Está seguro?",
+      text: "El registro será eliminado",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          await deleteActivity(id);
+          const newData = data.filter((item) => item.id !== id);
+          setData(newData);
+          swal("Eliminado con éxito", {
+            icon: "success", 
+          });
+        } catch (error) {
+          console.error("Error deleting data:", error);} 
+      } else {
+        swal("El registro no se eliminó");
+      }
+    });
+  };
 
   const columns = useMemo(
     () => [
@@ -137,16 +144,10 @@ const MaterialTable = () => {
 
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Actualizar datos">
-          <Button 
-          // onClick={() => handleUpdate(row.original)}
-          >
-            <FaEdit />
-          </Button>
-        </Tooltip>
+
         <Tooltip title="Eliminar">
           <Button 
-          // onClick={() => handleDelete(row.original.id)}
+          onClick={() => handleDelete(row.original.id)}
           >
             <MdDelete />
           </Button>

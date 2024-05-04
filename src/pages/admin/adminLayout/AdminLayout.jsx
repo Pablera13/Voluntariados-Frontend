@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
 
 function AdminLayout() {
   return (
@@ -30,14 +31,27 @@ function AdminLayout() {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            {/* <NavLink exact to="/admin" activeClassName="activeClicked">
+            <NavLink exact to="/admin/panel" activeclassname="activeClicked">
               <CDBSidebarMenuItem icon="columns">Panel</CDBSidebarMenuItem>
-            </NavLink> */}
+            </NavLink>
+
+            {/* <Nav.Link href="/admin/panel" className="mx-1 navItem">
+              <CDBSidebarMenuItem icon="columns">Panel</CDBSidebarMenuItem>
+            </Nav.Link> */}
+
+            <NavLink
+              exact
+              to="/admin/companies"
+              activeclassname="activeClicked"
+            >
+              <CDBSidebarMenuItem icon="building">Organizaciones</CDBSidebarMenuItem>
+            </NavLink>
+
 
             <NavLink
               exact
               to="/admin/volunteering"
-              activeClassName="activeClicked"
+              activeclassname="activeClicked"
             >
               <CDBSidebarMenuItem icon="user-check">
                 Voluntariados
@@ -47,28 +61,22 @@ function AdminLayout() {
             <NavLink
               exact
               to="/admin/activities"
-              activeClassName="activeClicked"
+              activeclassname="activeClicked"
             >
-              <CDBSidebarMenuItem icon="binoculars">Actividades</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="binoculars">Eventos</CDBSidebarMenuItem>
             </NavLink>
 
             <NavLink
               exact
               to="/admin/volunteers"
-              activeClassName="activeClicked"
+              activeclassname="activeClicked"
             >
               <CDBSidebarMenuItem icon="user">Voluntarios</CDBSidebarMenuItem>
             </NavLink>
 
-            <NavLink
-              exact
-              to="/admin/companies"
-              activeClassName="activeClicked"
-            >
-              <CDBSidebarMenuItem icon="building">Empresas</CDBSidebarMenuItem>
-            </NavLink>
 
-            
+
+
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
@@ -83,14 +91,14 @@ function AdminLayout() {
             <Link to={'/'}>
               <Button variant="dark"><i class="fa fa-arrow-left" aria-hidden="true"></i></Button>
             </Link>
-           
+
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>
       <div className="d-flex flex-column h-100 w-100">
-      <Outlet />
+        <Outlet />
       </div>
-      
+
     </div>
   );
 }

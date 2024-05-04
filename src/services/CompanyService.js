@@ -10,6 +10,11 @@ export const createCompany = async (company) => {
     return data;
 }
 
+export const deleteCompany  = async (id) => {
+    let data = await api.delete(`organization/${id}`).then(result => result.data);
+    return data;
+}
+
 export const  getCompanyById = async (organizationId) => {
     let data = await api.get(`organization/${organizationId}`).then(result => result.data);
     return data;

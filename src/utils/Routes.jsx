@@ -59,179 +59,153 @@ const Routes = () => {
     },
   ];
 
-  // Define routes accessible only to authenticated users
-  const routesForAuthenticatedOnly = [
-    {
-      path: "/",
-      element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
-      children: [
-        {
-          path: "/volunteering",
-          element: (
-            <Layout>
-              <Volunteering />
-            </Layout>
-          ),
-        },
-        {
-          path: "/volunteering/:volunteeringId",
-          element: (
-            <Layout>
-              <DetailVolunteering />
-            </Layout>
-          ),
-        },
-        {
-          path: "/activities",
-          element: (
-            <Layout>
-              <Activities />
-            </Layout>
-          ),
-        },
-        {
-          path: "/organization",
-          element: (
-            <Layout>
-              <Organization />
-            </Layout>
-          ),
-        },
+ // Define routes accessible only to authenticated users
+ const routesForAuthenticatedOnly = [
+  {
+    path: "/",
+    element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
+    children: [
+      {
+        path: "volunteering",
+        element: (
+          <Layout>
+            <Volunteering />
+          </Layout>
+        ),
+      },
+      {
+        path: "volunteering/:volunteeringId",
+        element: (
+          <Layout>
+            <DetailVolunteering />
+          </Layout>
+        ),
+      },
+      {
+        path: "activities",
+        element: (
+          <Layout>
+            <Activities />
+          </Layout>
+        ),
+      },
+      {
+        path: "organization",
+        element: (
+          <Layout>
+            <Organization />
+          </Layout>
+        ),
+      },
 
-        {
-          path: "/profile",
-          element: (
-            <Layout>
-              <Profile />
-            </Layout>
-          ),
-        },
-        {
-          path: "/organization/:organizationId",
-          element: (
-            <Layout>
-              <DetailOrganization />
-            </Layout>
-          ),
-        },
-        {
-          path: "/admin/panel",
-          element: (
-            <AdminLayout>
-              <AdminPanel />
-            </AdminLayout>
-          ),
-        },
-        {
-          path: "/admin/volunteering",
-          element: (
-            <AdminLayout>
-              <AdminVolunteering />
-            </AdminLayout>
-          ),
-        },
-        {
-          path: "/admin/volunteering/create",
-          element: (
-            <AdminLayout>
-              <CreateVolunteering />
-            </AdminLayout>
-          ),
-        },
-        {
-          path: "/admin/activities",
-          element: (
-            <AdminLayout>
-              <AdminActivities />
-            </AdminLayout>
-          ),
-        },
-        {
-          path: "/admin/volunteers",
-          element: (
-            <AdminLayout>
-              <Volunteers />
-            </AdminLayout>
-          ),
-        },
-        {
-          path: "/admin/companies",
-          element: (
-            <AdminLayout>
-              <Companies />
-            </AdminLayout>
-          ),
-        },
-        {
-          path: "/admin/companies/create",
-          element: (
-            <AdminLayout>
-              <CreateCompany />
-            </AdminLayout>
-          ),
-        },
-        {
-          path: "/admin/users",
-          element: (
-            <AdminLayout>
-              <Users />
-            </AdminLayout>
-          ),
-        },
-        {
-          path: "/logout",
-          element: <Logout/>,
-        },
-      ],
-    },
-  ];
+      {
+        path: "profile",
+        element: (
+          <Layout>
+            <Profile />
+          </Layout>
+        ),
+      },
+      {
+        path: "organization/:organizationId",
+        element: (
+          <Layout>
+            <DetailOrganization />
+          </Layout>
+        ),
+      },
 
-  // Define routes accessible only to non-authenticated users
-  const routesForNotAuthenticatedOnly = [
-    
-    {
-      path: "/",
-      element: (
-        <Layout>
-          <Home />
-        </Layout>
-      ),
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/form-volunteer",
-      element: (
-        <Layout>
-          <FormVolunteer />
-        </Layout>
-      ),
-    },
-    {
-      path: "/form-organization",
-      element: (
-        <Layout>
-          <FormOrganization />
-        </Layout>
-      ),
-    },
-  ];
+      {
+        path: "admin/",
+        element: (<AdminLayout/>),
+        children: [
+          {
+            path: "panel",
+            element: (<AdminPanel/>),
+          },
+          {
+            path: "volunteering",
+            element: (<AdminVolunteering/>),
+          },
+          {
+            path: "volunteering/create",
+            element: (<CreateVolunteering/>),
+          },
+          {
+            path: "activities",
+            element: (<AdminActivities/>),
+          },
+          {
+            path: "volunteers",
+            element: (<Volunteers/>),
+          },
+          {
+            path: "companies",
+            element: (<Companies/>),
+          },
+          {
+            path: "companies/create",
+            element: (<CreateCompany/>),
+          },
+          {
+            path: "users",
+            element: (<Users/>),
+          },
+        ]
+      },
+      {
+        path: "logout",
+        element: <Logout/>,
+      },
+    ],
+  },
+];
 
-  // Combine and conditionally include routes based on authentication status
-  const router = createBrowserRouter([
-    ...routesForPublic,
-    ...(!token ? routesForNotAuthenticatedOnly : []),
-    ...routesForAuthenticatedOnly,
-  ]);
+// Define routes accessible only to non-authenticated users
+const routesForNotAuthenticatedOnly = [
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/home",
+    element: (
+      <Layout>
+        <Home />
+      </Layout>
+    ),
+  },
+  {
+    path: "/form-volunteer",
+    element: (
+      <Layout>
+        <FormVolunteer />
+      </Layout>
+    ),
+  },
+  {
+    path: "/form-organization",
+    element: (
+      <Layout>
+        <FormOrganization />
+      </Layout>
+    ),
+  },
+];
 
-  // Provide the router configuration using RouterProvider
-  return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  );
+// Combine and conditionally include routes based on authentication status
+const router = createBrowserRouter([
+  ...routesForPublic,
+  ...(!token ? routesForNotAuthenticatedOnly : []),
+  ...routesForAuthenticatedOnly,
+]);
+
+// Provide the router configuration using RouterProvider
+return (
+  <QueryClientProvider client={queryClient}>
+    <RouterProvider router={router} />
+  </QueryClientProvider>
+);
 };
 
 export default Routes;

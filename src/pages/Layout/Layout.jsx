@@ -33,7 +33,7 @@ function Layout({children}) {
 
             <NavDropdown title="Perfil" id="basic-nav-dropdown" className="mx-1 navItem">
               <NavDropdown.Item href="/login">Iniciar Sesion</NavDropdown.Item>
-              <NavDropdown.Item href="/admin/panel">Administrar</NavDropdown.Item>
+              <NavDropdown.Item href="/admin">Administrar</NavDropdown.Item>
               <NavDropdown.Item href="/profile">Mi perfil</NavDropdown.Item>
               <NavDropdown.Item href="/logout">Cerrar Sesion</NavDropdown.Item>
             </NavDropdown>

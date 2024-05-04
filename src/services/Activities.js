@@ -10,6 +10,11 @@ export const getActivityById = async (id) => {
     return data;
 }
 
+export const deleteActivity = async (id) => {
+    let data = await api.delete(`event/${id}`).then(result => result.data);
+    return data;
+}
+
 export const createEvent = async (event) => {
     let data = await api.post('event', event).then(result => result.data);
     return data;

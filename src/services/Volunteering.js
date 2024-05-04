@@ -9,3 +9,8 @@ export const getVolunteeringById = async (id) => {
     let data = await api.get(`volunteering/${id}`).then(result => result.data);
     return data;
 }
+
+export const deleteVolunteering  = async (id) => {
+    let data = await api.delete(`volunteering/${id}`).then(result => result.data);
+    return data;
+}

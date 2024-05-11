@@ -12,7 +12,7 @@ function Home() {
         
 
         <HeroImage/>
-      
+     
         <About/>
         <section className="mt-4">
           <Section/>

@@ -99,7 +99,7 @@ const MaterialTable = () => {
         header: "Verificado",
         enableClickToCopy: true,
         Cell: ({ row }) => { 
-          return (<span>{row.original.verified === 1 ? "Verificado" : "No verificado"}</span>);
+          return (<span>{row.original.verified === true ? "Verificado" : "No verificado"}</span>);
         },
           editVariant: 'select',
           editSelectOptions: ["Verificado", "No verificado"],

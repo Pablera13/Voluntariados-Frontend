@@ -127,9 +127,9 @@ const MaterialTable = () => {
         accessorKey: "itsVerified",
         header: "Verificado",
         editVariant: 'select',
-        // Cell: ({ row }) => {
-        //   return (<span>{row.original.itsVerified === 1 ? "Verificado" : "No verificado"}</span>);
-        // },
+        Cell: ({ row }) => {
+          return (<span>{row.original.itsVerified? "Verificado" : "No verificado"}</span>);
+        },
         editSelectOptions: [`Verificado`, `No verificado`],
         muiEditTextFieldProps: ({ row }) => ({
           select: true,
@@ -140,9 +140,7 @@ const MaterialTable = () => {
               ...editedData,
               [row.id]: {id: row.original.id, itsVerified: event.target.value},
             }),
-            Cell: ({ row }) => {
-              return (<span>{row.original.itsVerified === 1 ? "Verificado" : "No verificado"}</span>);
-            },
+            
         }),
         
       },

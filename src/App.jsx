@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import AuthProvider from "./context/AuthContext";
 import Routes from "./utils/Routes";
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
+          
           <Routes />
         </AuthProvider>
       </QueryClientProvider>

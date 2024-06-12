@@ -1,8 +1,9 @@
 import axios from "axios";
+import api from '../api/config'
 
-const api = 'http://localhost:3000/validateId/'
+
 
 export const getIdValidate = async (id) => {
-    let data = await axios.get(`${api}${id}`).then(result => result.data);
+    let data = await api.get(`validateId/${id}`).then(result => result.data);
     return data;
 }

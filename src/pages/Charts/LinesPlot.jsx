@@ -31,13 +31,11 @@ export default function TwoLevelPieChart() {
           innerRadius: 0,
           outerRadius: 80,
           data: data1,
-          label: 'series A',
         },
         {
           innerRadius: 100,
           outerRadius: 120,
           data: data2,
-          label: 'series B'
         },
       ]}
       width={400}

@@ -77,6 +77,7 @@ const dataset = [
 export default function BarsDataset() {
   return (
     <BarChart
+    
       dataset={dataset}
       xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
       colors={['skyblue', 'purple']}

@@ -7,8 +7,8 @@ import Volunteering from "../pages/volunteering/Volunteering";
 import DetailVolunteering from "../pages/volunteering/components/DetailVolunteering";
 import Activities from "../pages/activities/Activities";
 import Organization from "../pages/organization/Organization";
-import FormVolunteer from "../pages/forms/FormVolunteer";
-import FormOrganization from "../pages/forms/FormOrganization";
+import FormVolunteer from "../pages/forms/FormVolunteer.tsx";
+import FormOrganization from "../pages/forms/FormOrganization.tsx";
 import Profile from "../pages/profile/Profile";
 import DetailOrganization from "../pages/organization/components/DetailOrganization";
 import AdminLayout from "../pages/admin/adminLayout/AdminLayout";
@@ -86,6 +86,14 @@ const Routes = () => {
         element: (
           <Layout>
             <Activities />
+          </Layout>
+        ),
+      },
+      {
+        path: "activities/:activitiesId",
+        element: (
+          <Layout>
+            <DetailActivities />
           </Layout>
         ),
       },

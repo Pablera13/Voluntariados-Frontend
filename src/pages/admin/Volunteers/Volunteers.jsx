@@ -1,26 +1,18 @@
-import React from "react";
-import { Container, Card, Table, Button } from "react-bootstrap";
+import React, { useState, useEffect, useMemo } from "react";
+import { Container, Card, Button } from "react-bootstrap";
 import HeroCRUD from "../components/HeroCRUD";
-import { useState, useEffect, useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
 import useCustomMaterialTable from "../../../utils/materialTableConfig.js";
 import autoTable from "jspdf-autotable";
 import { jsPDF } from "jspdf";
 import { format } from "date-fns";
-import { QueryClient, QueryClientProvider, useQueryClient,   useMutation,} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { MdDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
-import { FaFilePdf } from "react-icons/fa6";
-import { getVolunteers, deleteVolunteer, createVolunteer } from "../../../services/Volunteer";
+import { FaFilePdf } from "react-icons/fa";
 import swal from 'sweetalert';
-import {
-  Box,
-  CircularProgress,
-  IconButton,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Box, Tooltip } from "@mui/material";
+import { getVolunteers, deleteVolunteer, updateVolunteerVerification } from "../../../services/Volunteer";
 
 const MaterialTable = () => {
   const [data, setData] = useState([]);
@@ -45,14 +37,6 @@ const MaterialTable = () => {
     isLoading: isLoading,
   } = getVolunteers();
 
-  const { mutateAsync: update, isPending: isUpdating } = useUpdate();
-
-    const handleSave = async () => {
-      if (Object.values(validationErrors).some((error) => !!error)) return;
-      await update(Object.values(editedUsers));
-      setEditedData({});
-    };
-
   const handleDelete = async (id) => {
     swal({
       title: "¿Está seguro?",
@@ -60,25 +44,23 @@ const MaterialTable = () => {
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    })
-      .then(async (willDelete) => {
-        if (willDelete) {
-          try {
-            await deleteVolunteer(id);
-            const newData = data.filter((item) => item.id !== id);
-            setData(newData);
-            swal("Eliminado con éxito", {
-              icon: "success",
-            });
-          } catch (error) {
-            console.error("Error deleting data:", error);
-          }
-        } else {
-          swal("El registro no se eliminó");
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          await deleteVolunteer(id);
+          const newData = data.filter((item) => item.id !== id);
+          setData(newData);
+          swal("Eliminado con éxito", {
+            icon: "success",
+          });
+        } catch (error) {
+          console.error("Error deleting data:", error);
         }
-      });
+      } else {
+        swal("El registro no se eliminó");
+      }
+    });
   };
-
 
   const columns = useMemo(
     () => [
@@ -87,7 +69,6 @@ const MaterialTable = () => {
         header: "Cédula",
         enableClickToCopy: true,
         enableEditing: false,
-
       },
       {
         accessorKey: "name",
@@ -113,8 +94,10 @@ const MaterialTable = () => {
         enableClickToCopy: true,
         enableEditing: false,
         Cell: ({ row }) => {
-          return (<span>{format(new Date(row.original.birthday), "yyyy-MM-dd")}</span>);
-        }
+          return (
+            <span>{format(new Date(row.original.birthday), "yyyy-MM-dd")}</span>
+          );
+        },
       },
       {
         accessorKey: "address",
@@ -122,30 +105,65 @@ const MaterialTable = () => {
         enableClickToCopy: true,
         enableEditing: false,
       },
-
       {
         accessorKey: "itsVerified",
         header: "Verificado",
-        editVariant: 'select',
+        enableClickToCopy: true,
         Cell: ({ row }) => {
-          return (<span>{row.original.itsVerified? "Verificado" : "No verificado"}</span>);
+          return (
+            <select
+              value={row.original.itsVerified ? "Verificado" : "No verificado"}
+              onChange={async (e) => {
+                const newValue = e.target.value === "Verificado";
+                swal({
+                  title: "¿Está seguro?",
+                  text: `¿Desea cambiar el estado a ${newValue ? "Verificado" : "No verificado"}?`,
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                  .then(async (willDelete) => {
+                    if (willDelete) {
+                      try {
+                        const newCompany = {
+                          itsVerified: newValue,
+                        };
+                        await updateVolunteerVerification(row.original.id, newCompany);
+                        const updatedData = data.map((item) =>
+                          item.id === row.original.id ? { ...item, verified: newValue } : item
+                        );
+                        setData(updatedData);
+                        swal("Actualizado con éxito", {
+                          icon: "success",
+                        });
+                      } catch (error) {
+                        console.error("Error updating data:", error);
+                      }
+                    }
+                  });
+              }}
+            >
+              <option value="Verificado">Verificado</option>
+              <option value="No verificado">No verificado</option>
+            </select>
+          );
         },
-        editSelectOptions: [`Verificado`, `No verificado`],
+        editVariant: 'select',
+        editSelectOptions: ["Verificado", "No verificado"],
         muiEditTextFieldProps: ({ row }) => ({
           select: true,
-          error: !!validationErrors?.itsVerified,
-          helperText: validationErrors?.itsVerified,
+          error: !!validationErrors?.verified,
+          helperText: validationErrors?.verified,
           onChange: (event) =>
             setEditedData({
               ...editedData,
-              [row.id]: {id: row.original.id, itsVerified: event.target.value},
+              [row.id]: { ...row.original, itsVerified: event.target.value },
             }),
-            
         }),
-        
       },
+      
     ],
-    [editedData, validationErrors],
+    [editedData, validationErrors]
   );
 
   const handleExportRows = (rows) => {
@@ -163,7 +181,6 @@ const MaterialTable = () => {
     doc.save(`Reporte Voluntarios ${formattedDate}.pdf`);
   };
 
-
   const table = useCustomMaterialTable({
     columns,
     data: data,
@@ -173,18 +190,8 @@ const MaterialTable = () => {
 
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Actualizar datos">
-          <Button
-          // onClick={() => handleUpdate(row.original)}
-          >
-            <FaEdit />
-          </Button>
-        </Tooltip>
-
         <Tooltip title="Eliminar">
-          <Button
-            onClick={() => handleDelete(row.original.id)}
-          >
+          <Button onClick={() => handleDelete(row.original.id)}>
             <MdDelete />
           </Button>
         </Tooltip>
@@ -204,63 +211,12 @@ const MaterialTable = () => {
         </Button>
       </>
     ),
-
-    renderBottomToolbarCustomActions: () => (
-      <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-        <Button
-          color="success"
-          variant="contained"
-          onClick={handleSave}
-          disabled={
-            Object.keys(editedData).length === 0 ||
-            Object.values(validationErrors).some((error) => !!error)
-          }
-        >
-          {isUpdating ? <CircularProgress size={25} /> : 'Guardar'}
-        </Button>
-        {Object.values(validationErrors).some((error) => !!error) && (
-          <Typography color="error">Corregir errores antes de enviar</Typography>
-        )}
-      </Box>
-    ),
-    state: {
-      isLoading: isLoading,
-      isSaving: isUpdating,
-      showAlertBanner: isLoadingError,
-      showProgressBars: isFetching,
-    },
-
   });
 
   return <MaterialReactTable table={table} />;
 };
 
 const queryClient = new QueryClient();
-
-function useUpdate() {
-
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (users) => {
-      console.log(JSON.stringify(users))
-
-      // await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-      // return Promise.resolve();
-
-    },
-    // onMutate: (newUsers) => {
-    //   queryClient.setQueryData(['users'], (prevUsers) =>
-    //     prevUsers?.map((user) => {
-    //       const newUser = newUsers.find((u) => u.id === user.id);
-    //       return newUser ? newUser : user;
-    //     }),
-    //   );
-    // },
-    // onSettled: () => queryClient.invalidateQueries({ queryKey: ['users'] }), //refetch users after mutation, disabled for demo
-  });
-
-}
-
 
 const Volunteers = () => (
   <>

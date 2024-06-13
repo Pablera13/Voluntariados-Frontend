@@ -93,7 +93,42 @@ function DetailOrganization() {
             </div>
           ))}
         </div>
+
+        <div className="row mt-5 d-flex align-items-center">
+        <div className="col desc-col">
+            <p className="">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+          </div>
+          <div className="col">
+            <h4>
+              Lista de eventos ofrecidos
+            </h4>
+          </div>
+        </div>
       </Container>
+
+      <Container className="mt-5">
+      <div className="row">
+      {data.events?.map((item)=>(
+        <div className="col">
+        <Card className="mb-3 card">
+          <Card.Body>
+            <h4>{item.name}</h4>
+            <h6>{item.category}</h6>
+            <p>
+            La fecha de la actividad es {(item.date).substr(0,10)}
+            </p>
+            <Link to={`/activities/${item.id}`}>
+              <button className="acceptButton">Detalles</button>
+            </Link>
+          </Card.Body>
+        </Card>
+      </div>
+          ))}
+        </div>
+        </Container>
+
     </>
   );
 }

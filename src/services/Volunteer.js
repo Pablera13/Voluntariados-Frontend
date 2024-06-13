@@ -14,3 +14,8 @@ export const deleteVolunteer  = async (id) => {
     let data = await api.delete(`volunteer/${id}`).then(result => result.data);
     return data;
 }
+
+export const updateVolunteerVerification = async (id, newVolunteerData) => {
+    const response = await api.patch(`volunteer/${id}`, newVolunteerData);
+    return response.data;
+  };

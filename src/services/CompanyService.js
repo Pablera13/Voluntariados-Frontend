@@ -20,3 +20,8 @@ export const  getCompanyById = async (organizationId) => {
     return data;
 }
 
+export const updateCompanyVerification = async (id, newCompanyData) => {
+  const response = await api.patch(`organization/${id}`, newCompanyData);
+  return response.data;
+};
+

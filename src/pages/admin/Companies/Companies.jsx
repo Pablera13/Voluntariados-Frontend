@@ -11,9 +11,8 @@ import { format } from "date-fns";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { MdDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
-import { FaFilePdf } from "react-icons/fa6";
-import { getCompanies, deleteCompany } from "../../../services/CompanyService";
+import { FaEdit, FaFilePdf } from "react-icons/fa";
+import { getCompanies, deleteCompany, updateCompanyVerification } from "../../../services/CompanyService";
 import swal from 'sweetalert';
 
 const MaterialTable = () => {
@@ -47,21 +46,22 @@ const MaterialTable = () => {
       buttons: true,
       dangerMode: true,
     })
-    .then(async (willDelete) => {
-      if (willDelete) {
-        try {
-          await deleteCompany(id);
-          const newData = data.filter((item) => item.id !== id);
-          setData(newData);
-          swal("Eliminado con éxito", {
-            icon: "success", 
-          });
-        } catch (error) {
-          console.error("Error deleting data:", error);} 
-      } else {
-        swal("El registro no se eliminó");
-      }
-    });
+      .then(async (willDelete) => {
+        if (willDelete) {
+          try {
+            await deleteCompany(id);
+            const newData = data.filter((item) => item.id !== id);
+            setData(newData);
+            swal("Eliminado con éxito", {
+              icon: "success",
+            });
+          } catch (error) {
+            console.error("Error deleting data:", error);
+          }
+        } else {
+          swal("El registro no se eliminó");
+        }
+      });
   };
 
   const columns = useMemo(
@@ -71,7 +71,6 @@ const MaterialTable = () => {
         header: "Cédula",
         enableClickToCopy: true,
         enableEditing: false,
-
       },
       {
         accessorKey: "name",
@@ -90,7 +89,7 @@ const MaterialTable = () => {
         header: "Cuenta IBAN",
         enableClickToCopy: true,
         enableEditing: false,
-        Cell: ({ row }) => { 
+        Cell: ({ row }) => {
           return (<span>CR{row.original.bankaccount}</span>);
         },
       },
@@ -98,25 +97,60 @@ const MaterialTable = () => {
         accessorKey: "verified",
         header: "Verificado",
         enableClickToCopy: true,
-        Cell: ({ row }) => { 
-          return (<span>{row.original.verified === true ? "Verificado" : "No verificado"}</span>);
+        Cell: ({ row }) => {
+          return (
+            <select
+              value={row.original.verified ? "Verificado" : "No verificado"}
+              onChange={async (e) => {
+                const newValue = e.target.value === "Verificado";
+                swal({
+                  title: "¿Está seguro?",
+                  text: `¿Desea cambiar el estado a ${newValue ? "Verificado" : "No verificado"}?`,
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                  .then(async (willDelete) => {
+                    if (willDelete) {
+                      try {
+                        const newCompany = {
+                          verified: newValue,
+                        };
+                        await updateCompanyVerification(row.original.id, newCompany);
+                        const updatedData = data.map((item) =>
+                          item.id === row.original.id ? { ...item, verified: newValue } : item
+                        );
+                        setData(updatedData);
+                        swal("Actualizado con éxito", {
+                          icon: "success",
+                        });
+                      } catch (error) {
+                        console.error("Error updating data:", error);
+                      }
+                    }
+                  });
+              }}
+            >
+              <option value="Verificado">Verificado</option>
+              <option value="No verificado">No verificado</option>
+            </select>
+          );
         },
-          editVariant: 'select',
-          editSelectOptions: ["Verificado", "No verificado"],
-          muiEditTextFieldProps: ({ row }) => ({
-            select: true,
-            error: !!validationErrors?.verified,
-            helperText: validationErrors?.verified,
-            onChange: (event) =>
-              setEditedData({
-                ...editedData,
-                [row.id]: { ...row.original, verified: event.target.value },
-              }),
-          }),
-        },
-
+        editVariant: 'select',
+        editSelectOptions: ["Verificado", "No verificado"],
+        muiEditTextFieldProps: ({ row }) => ({
+          select: true,
+          error: !!validationErrors?.verified,
+          helperText: validationErrors?.verified,
+          onChange: (event) =>
+            setEditedData({
+              ...editedData,
+              [row.id]: { ...row.original, verified: event.target.value },
+            }),
+        }),
+      },
     ],
-    [editedData, validationErrors],
+    [editedData, validationErrors, data]
   );
 
   const handleExportRows = (rows) => {
@@ -133,7 +167,6 @@ const MaterialTable = () => {
     const formattedDate = format(currentDate, "yyyy-MM-dd");
     doc.save(`Reporte Organizaciones ${formattedDate}.pdf`);
   };
-  
 
   const table = useCustomMaterialTable({
     columns,
@@ -144,17 +177,8 @@ const MaterialTable = () => {
 
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Actualizar datos">
-          <Button 
-          // onClick={() => handleUpdate(row.original)}
-          >
-            <FaEdit />
-          </Button>
-        </Tooltip>
         <Tooltip title="Eliminar">
-          <Button 
-          onClick={() => handleDelete(row.original.id)}
-          >
+          <Button onClick={() => handleDelete(row.original.id)}>
             <MdDelete />
           </Button>
         </Tooltip>
@@ -183,8 +207,8 @@ const queryClient = new QueryClient();
 
 const Companies = () => (
   <>
-<div className="text-center">
-    <HeroCRUD text={"Organizaciones"} />
+    <div className="text-center">
+      <HeroCRUD text={"Organizaciones"} />
     </div>
     <Card className="cardHeroCRUD shadow">
       {/* <Card.Body>

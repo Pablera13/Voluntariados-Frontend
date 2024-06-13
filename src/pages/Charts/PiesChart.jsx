@@ -1,17 +1,28 @@
 import  { useState, useEffect } from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { getTotalVolunteerings } from '../../services/Volunteering';
+import { getTotalVolunteer } from '../../services/Volunteer';
+import { getTotalOrganization } from '../../services/Organization';
 
 export default function BasicPie() {
-  const [totalVolunteering, setTotalVolunteering] = useState(0);
+  const [totalVolunteer, setTotalVolunteer] = useState(0);
+  const [totalOrganization, setTotalOrganization] = useState(0);
 
   useEffect(() => {
-    const fetchTotalVolunteering = async () => {
-      const total = await getTotalVolunteerings();
-      setTotalVolunteering(total);
+    const fetchTotalOrganization = async () => {
+      const total = await getTotalOrganization();
+      setTotalOrganization(total);
     };
 
-    fetchTotalVolunteering();
+    fetchTotalOrganization();
+  }, []);
+
+  useEffect(() => {
+    const fetchTotalVolunteer = async () => {
+      const total = await getTotalVolunteer();
+      setTotalVolunteer(total);
+    };
+
+    fetchTotalVolunteer();
   }, []);
 
   return (
@@ -20,9 +31,9 @@ export default function BasicPie() {
       series={[
         {
           data: [
-            { id: 0, value: totalVolunteering, label: 'Volunteering' },
-            { id: 1, value: 15, label: 'Solicitante B' },
-            { id: 2, value: 20, label: 'Empresas C' },
+            { id: 0, value: totalOrganization, label: 'Organizaciones' },
+            { id: 1, value: totalVolunteer, label: 'Voluntarios' },
+            { id: 2, value: 5, label: 'Empresas C' },
           ],
         },
       ]}

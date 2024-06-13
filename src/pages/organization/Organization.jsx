@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import React from "react";
 import HeroHeader from "../../components/HeroHeader";
 import { getCompanies } from "../../services/CompanyService";

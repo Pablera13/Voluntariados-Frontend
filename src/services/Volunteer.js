@@ -1,5 +1,16 @@
 import api from '../api/config'
 
+export const getTotalVolunteer = async () => {
+    try {
+        const volunteer = await getVolunteers(); 
+        const total = volunteer.length; 
+        return total;
+    } catch (error) {
+        console.error(error);
+        return 0; 
+    }
+};
+
 export const  getVolunteers = async () => {
     let data = await api.get('volunteer').then(result => result.data);
     return data;

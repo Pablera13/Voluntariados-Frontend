@@ -10,12 +10,12 @@ import RegisterModal from "./RegisterModal";
 function DetailVolunteering() {
   let { volunteeringId } = useParams();
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading, isError, refetch } = useQuery(
     `volunteering/${volunteeringId}`,
     () => getVolunteeringById(volunteeringId)
   );
 
-  console.log(volunteeringId);
+  
   return (
     <>
       <HeroHeader
@@ -50,7 +50,7 @@ function DetailVolunteering() {
               <div className="mb-2">{data.requirements}</div>
               <div className="d-flex justify-content-end mt-3">
 
-              <RegisterModal/>
+              <RegisterModal volunteeringId={data.id} refetch={refetch}/>
               </div>
             </Card.Body>
           </Card>

@@ -65,7 +65,8 @@ export const FormOrganizationSchema: ZodType<FormDataOrganization> = z.object({
   bankaccount: z.number({invalid_type_error: 'La cuenta bancaria es requerida y tienen que ser numeros'}).min(10, {message: 'La cuenta bancaria debe contener mas digitos'}),
   imagen: z.string().min(1, {message:"La imagen es requerida"})
   
-})
+});
+
 
 export type FormDataOrganization = {
   mail:string;
@@ -73,6 +74,7 @@ export type FormDataOrganization = {
   cedula:number;
   name:string;
   address:string;
+  imageUrl:string;
   bankaccount:number;
   imagen:string;
 }

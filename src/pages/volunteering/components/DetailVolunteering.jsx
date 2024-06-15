@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getVolunteeringById } from "../../../services/Volunteering";
 import RegisterModal from "./RegisterModal";
+import ParticipantsModal from "./ParticipantsModal";
 
 
 function DetailVolunteering() {
@@ -50,7 +51,9 @@ function DetailVolunteering() {
               <div className="mb-2">{data.requirements}</div>
               <div className="d-flex justify-content-end mt-3">
 
-              <RegisterModal volunteeringId={data.id} refetch={refetch}/>
+              <RegisterModal volunteering={data} refetch={refetch}/>
+              <ParticipantsModal volunteers={data.volunteeringvolunteers} />
+
               </div>
             </Card.Body>
           </Card>

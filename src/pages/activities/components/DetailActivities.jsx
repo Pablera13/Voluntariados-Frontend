@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { getActivityById } from "../../../services/Activities";
 import { format } from "date-fns";
 import RegisterModal from "./RegistarModel";
+import ParticipantsModal from "./ParticipantsModal";
 
 
 function DetailActivities() {
@@ -51,7 +52,9 @@ function DetailActivities() {
 
               <div className="d-flex justify-content-end mt-3">
 
-              <RegisterModal volunteeringId={data.id} refetch={refetch}/>
+              <RegisterModal activity={data} refetch={refetch}/>
+              <ParticipantsModal volunteers={data.eventvolunteers} />
+
               </div>
             </Card.Body>
           </Card>

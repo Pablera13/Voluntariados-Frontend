@@ -7,18 +7,18 @@ import '../../style/AdminPanel.css';
 
 function AdminPanel() {
   return (
-    <div className="container">
-      <div className="grid">
-        <div className="chart-box bg-light px-2 border border-2">
+    <div className="admincontainer">
+      <div className="admingrid">
+        <div className="admin-chart-box bg-light px-2 border border-2">
           <BarsChart />
         </div>
-        <div className="chart-box bg-light px-2 border border-2">
+        <div className="admin-chart-box bg-light px-2 border border-2">
           <LinesPlot />
         </div>
-        <div className="chart-box bg-light px-2 border border-2">
+        <div className="admin-chart-box bg-light px-2 border border-2">
           <PiesChart />
         </div>
-        <div className="chart-box bg-light px-2 border border-2">
+        <div className="admin-chart-box bg-light px-2 border border-2">
           <LinesChart />
         </div>
       </div>

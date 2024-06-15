@@ -1,17 +1,17 @@
-.container {
+.admincontainer {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     margin-top: 50px;
   }
   
-  .grid {
+  .admingrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
   
-  .chart-box {
+  .admin-chart-box {
     width: 500px;
     height: 275px;
     box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);

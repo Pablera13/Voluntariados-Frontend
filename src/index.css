@@ -411,7 +411,7 @@ body {
 }
 
 .acceptButton {
-  width: 12vh;
+  width: 15vh;
   padding: 6px 0px;
   background-color: #ffec9e;
   transition-duration: 0.2s;
@@ -425,7 +425,8 @@ body {
 }
 
 .declineButton {
-  width: 80px;
+  width: 15vh;
+  padding: 6px 0px;
   height: 30px;
   background-color: #dadada;
   transition-duration: 0.2s;

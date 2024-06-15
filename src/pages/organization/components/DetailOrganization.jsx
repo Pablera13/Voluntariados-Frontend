@@ -46,7 +46,7 @@ function DetailOrganization() {
             <button className="acceptButton w-25">Ir al sitio web</button>
           </div>
           <div className="col d-flex justify-content-center">
-            <img src={logo} alt="" />
+            <img src={data.imageUrl} alt="" />
           </div>
         </div>
         <br />

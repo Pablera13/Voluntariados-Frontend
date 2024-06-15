@@ -52,6 +52,7 @@ function FormOrganization() {
         bankaccount:data.bankaccount,
         verified: false,
         userId: response.data.id,
+        imageUrl: data.imagen
       };
 
       const responseOrganization = await api.post('organization', newOrganization);
@@ -154,6 +155,18 @@ function FormOrganization() {
                 />
                 {errors.address && (
                   <span className="text-danger">{errors.address.message}</span>
+                )}
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Imagen</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  placeholder="Ingrese la imagen de la empresa"
+                  {...register("imagen")}
+                />
+                {errors.imagen && (
+                  <span className="text-danger">{errors.imagen.message}</span>
                 )}
               </Form.Group>
 

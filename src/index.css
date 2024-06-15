@@ -411,8 +411,8 @@ body {
 }
 
 .acceptButton {
-  width: 10vh;
-  padding: 5px 0px;
+  width: 12vh;
+  padding: 6px 0px;
   background-color: #ffec9e;
   transition-duration: 0.2s;
   border: none;

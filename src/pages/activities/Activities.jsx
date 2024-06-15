@@ -40,7 +40,7 @@ function Activities() {
                   La fecha de la actividad es {(item.date).substr(0,10)}
                 </p>
                 <Link to={`/activities/${item.id}`}>
-                <Button variant="outline-warning">Detalles</Button>
+                <button className="acceptButton">Ver</button>
                 </Link>
                 </Card.Body>
               </Card>

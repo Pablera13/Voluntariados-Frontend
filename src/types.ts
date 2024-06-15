@@ -74,7 +74,6 @@ export type FormDataOrganization = {
   cedula:number;
   name:string;
   address:string;
-  imageUrl:string;
   bankaccount:number;
   imagen:string;
 }

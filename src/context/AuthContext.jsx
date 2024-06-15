@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-inner-declarations */
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { jwtDecode } from 'jwt-decode'
@@ -48,6 +51,7 @@ const AuthProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   return useContext(AuthContext);
 };

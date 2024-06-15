@@ -1,3 +1,7 @@
+
+
+
+
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -24,6 +28,7 @@ import Users from "../pages/admin/users/Users";
 import Login from "../pages/login/Login";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Logout from "../pages/logout/Logout";
+import "../style/AdminPanel.css"
 const Routes = () => {
   const { token } = useAuth();
   const queryClient = new QueryClient();

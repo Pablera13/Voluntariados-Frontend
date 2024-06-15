@@ -10,22 +10,6 @@ import api from "../../api/config";
 import toast from "react-hot-toast";
 
 function FormOrganization() {
-  // const [dataId, setDataId] = useState(0);
-  // const [data, setData] = useState<any>();
-
-  //   useEffect(() => {
-  //     const getData = setTimeout(() => {
-  //       const get = async () => {
-  //         const object  = await getIdValidate(dataId);
-  //         console.log(object);
-  //         setData(object.results[0])
-  //       }
-  //   get()
-  //     }, 2000)
-
-  //     return () => clearTimeout(getData)
-  //   }, [dataId])
-
   const {
     register,
     handleSubmit,
@@ -42,23 +26,27 @@ function FormOrganization() {
       password: data.password,
     };
 
-    const response = await api.post(`users`, newUser);
+    const userResponse = await api.post(`users`, newUser);
 
-    if (response.status == 200 || response.status == 201) {
+    if (userResponse.status == 200 || userResponse.status == 201) {
       let newOrganization = {
         cedula: data.cedula,
         name: data.name,
         address: data.address,
-        bankaccount:data.bankaccount,
+        imageUrl: data.imageUrl,
+        bankaccount: data.bankaccount,
         verified: false,
-        userId: response.data.id,
+        userId: userResponse.data.id,
+        
       };
 
       const responseOrganization = await api.post('organization', newOrganization);
 
       if(responseOrganization.status == 200 || responseOrganization.status == 201){
-        toast.success("Organizacion creada con exito!");
+        toast.success("Organización creada con éxito!");
         reset();
+      } else {
+        toast.error("Error al crear la organización");
       }
     }
   };
@@ -66,26 +54,26 @@ function FormOrganization() {
   return (
     <>
       <HeroHeader
-        header={"Formulario para integrar tu organizacion"}
+        header={"Formulario para integrar tu organización"}
         text={
-          "Con este formulario podras realizar la solicitud para poder llegar a ser una organizacion activa"
+          "Con este formulario podrás realizar la solicitud para poder llegar a ser una organización activa"
         }
         img={"organizationhero"}
       />
       <Container className="mt-3">
         <Card className="card-form">
           <Card.Header>
-            <h5>Completa los campos con la informacion de la empresa</h5>
+            <h5>Completa los campos con la información de la empresa</h5>
           </Card.Header>
           <Card.Body>
             <Form onSubmit={handleSubmit(onSubmit)}>
-            <Row>
+              <Row>
                 <Col>
                   <Form.Group className="mb-3">
-                    <Form.Label>Correo electronico</Form.Label>
+                    <Form.Label>Correo electrónico</Form.Label>
                     <Form.Control
                       type="email"
-                      placeholder="Ingrese su correo electronico"
+                      placeholder="Ingrese su correo electrónico"
                       {...register("mail")}
                     />
                     {errors.mail && (
@@ -110,10 +98,10 @@ function FormOrganization() {
                 </Col>
               </Row>
               <Form.Group className="mb-3">
-                <Form.Label>Numero de cedula</Form.Label>
+                <Form.Label>Número de cédula</Form.Label>
                 <Form.Control
                   type="number"
-                  placeholder="Ingrese el numero de cedula juridica"
+                  placeholder="Ingrese el número de cédula jurídica"
                   {...register("cedula", { valueAsNumber: true })}
                 />
                 {errors.cedula && (
@@ -131,13 +119,12 @@ function FormOrganization() {
                   <span className="text-danger">{errors.name.message}</span>
                 )}
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Cuenta bancaria</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Ingrese la cuenta bancaria"
-                  {...register("bankaccount", {valueAsNumber:true})}
+                  {...register("bankaccount", { valueAsNumber: true })}
                 />
                 {errors.bankaccount && (
                   <span className="text-danger">
@@ -146,20 +133,29 @@ function FormOrganization() {
                 )}
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Direccion</Form.Label>
+                <Form.Label>Dirección</Form.Label>
                 <Form.Control
                   as="textarea"
-                  placeholder="Ingrese la direccion de la empresa"
+                  placeholder="Ingrese la dirección de la empresa"
                   {...register("address")}
                 />
                 {errors.address && (
                   <span className="text-danger">{errors.address.message}</span>
                 )}
               </Form.Group>
-
+              <Form.Group className="mb-3">
+                <Form.Label>URL de la Imagen</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese la URL de la imagen"
+                  {...register("imageUrl")}
+                />
+                {errors.imageUrl && (
+                  <span className="text-danger">{errors.imageUrl.message}</span>
+                )}
+              </Form.Group>
               <button className="acceptButton" type="submit">
-                {" "}
-                Subir{" "}
+                Subir
               </button>
             </Form>
           </Card.Body>

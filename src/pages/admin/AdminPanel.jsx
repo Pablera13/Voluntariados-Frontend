@@ -1,22 +1,24 @@
+import React from 'react';
 import PiesChart from "../Charts/PiesChart";
 import BarsChart from "../Charts/BarsChart";
 import LinesChart from "../Charts/LinesChart";
 import LinesPlot from "../Charts/LinesPlot";
+import '../../style/AdminPanel.css';
 
 function AdminPanel() {
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", marginTop: "50px" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))", gap: "20px" }}>
-        <div className="bg-light px-2 border border-2" style={{ width: "500px", height: "275px", boxShadow: '4px 4px 5px rgba(0, 0, 0, 0.4)', borderRadius: "2%" }}>
+    <div className="container">
+      <div className="grid">
+        <div className="chart-box bg-light px-2 border border-2">
           <BarsChart />
         </div>
-        <div className="bg-light px-2 border border-2" style={{ width: "500px", height: "275px", boxShadow: '4px 4px 5px rgba(0, 0, 0, 0.4)', borderRadius: "2%" }}>
+        <div className="chart-box bg-light px-2 border border-2">
           <LinesPlot />
         </div>
-        <div className="bg-light px-2 border border-2" style={{ width: "500px", height: "275px", boxShadow: '4px 4px 5px rgba(0, 0, 0, 0.4)', borderRadius: "2%" }}>
+        <div className="chart-box bg-light px-2 border border-2">
           <PiesChart />
         </div>
-        <div className="bg-light px-2 border border-2" style={{ width: "500px", height: "275px", boxShadow: '4px 4px 5px rgba(0, 0, 0, 0.4)', borderRadius: "2%" }}>
+        <div className="chart-box bg-light px-2 border border-2">
           <LinesChart />
         </div>
       </div>

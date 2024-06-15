@@ -62,9 +62,11 @@ export const FormOrganizationSchema: ZodType<FormDataOrganization> = z.object({
   cedula: z.number({invalid_type_error: 'La cedula es requerida y tienen que ser numeros'}).min(8,{message:'La cedula debe de contener al menos 8 digitos'}),
   name: z.string({required_error: "El nombre es requerido"}).min(3, {message: "El nombre debe de tener al menos 3 digitos"}),
   address:z.string({required_error: "La direccion de la persona es requerida"}).min(5, {message: "La direccion es requerida y tiene que tener minimo 5 digitos"}),
+  imageUrl: z.string(),
   bankaccount: z.number({invalid_type_error: 'La cuenta bancaria es requerida y tienen que ser numeros'}).min(10, {message: 'La cuenta bancaria debe contener mas digitos'})
   
-})
+});
+
 
 export type FormDataOrganization = {
   mail:string;
@@ -72,6 +74,7 @@ export type FormDataOrganization = {
   cedula:number;
   name:string;
   address:string;
+  imageUrl:string;
   bankaccount:number;
 }
 

@@ -1,10 +1,7 @@
-import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { getCompanyById } from "../../../services/CompanyService";
 import { useQuery } from "react-query";
 import { Spinner, Container, Card } from "react-bootstrap";
-import logo from "../../../assets/logointel.png";
-
 
 function DetailOrganization() {
   let { organizationId } = useParams();
@@ -30,6 +27,7 @@ function DetailOrganization() {
   if (isError) {
     return <div>Error</div>;
   }
+
   return (
     <>
       <Container className="">
@@ -38,15 +36,19 @@ function DetailOrganization() {
             <h6>Perfil de la empresa</h6>
             <h1>{data.name}</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
-              laboriosam ut, voluptatibus nobis odit iure, unde omnis,
-              doloremque ex impedit provident? Asperiores accusantium, ex fugit
-              vero commodi esse perspiciatis labore.
+            Ofrecemos soluciones tecnológicas innovadoras y personalizadas,
+            desde desarrollo de software y aplicaciones móviles hasta sistemas de gestión empresarial.
+            Impulsamos la transformación digital de nuestros clientes, garantizando eficiencia y
+            calidad en cada proyecto para superar las expectativas del negocio.
             </p>
-            <button className="acceptButton w-25">Ir al sitio web</button>
+            <button className="acceptButton w-25" >Ir al sitio web</button>
           </div>
           <div className="col d-flex justify-content-center">
-            <img src={logo} alt="" />
+            <img 
+              src={data.imageUrl} 
+              alt={data.name} 
+              style={{ width: "400px", height: "250px", objectFit: "cover" }}
+            />
           </div>
         </div>
         <br />
@@ -75,7 +77,7 @@ function DetailOrganization() {
       <Container className="mt-5">
         <div className="row">
           {data?.volunteerings.map((item) => (
-            <div className="col">
+            <div className="col" key={item.id}>
               <Card className="mb-3 card">
                 <Card.Body>
                   <h4>{item.projectName}</h4>
@@ -95,7 +97,7 @@ function DetailOrganization() {
         </div>
 
         <div className="row mt-5 d-flex align-items-center">
-        <div className="col desc-col">
+          <div className="col desc-col">
             <p className="">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
@@ -109,28 +111,28 @@ function DetailOrganization() {
       </Container>
 
       <Container className="mt-5">
-      <div className="row">
-      {data.events?.map((item)=>(
-        <div className="col">
-        <Card className="mb-3 card">
-          <Card.Body>
-            <h4>{item.name}</h4>
-            <h6>{item.category}</h6>
-            <p>
-            La fecha de la actividad es {(item.date).substr(0,10)}
-            </p>
-            <Link to={`/activities/${item.id}`}>
-              <button className="acceptButton">Detalles</button>
-            </Link>
-          </Card.Body>
-        </Card>
-      </div>
+        <div className="row">
+          {data.events?.map((item) => (
+            <div className="col" key={item.id}>
+              <Card className="mb-3 card">
+                <Card.Body>
+                  <h4>{item.name}</h4>
+                  <h6>{item.category}</h6>
+                  <p>
+                    La fecha de la actividad es {(item.date).substr(0, 10)}
+                  </p>
+                  <Link to={`/activities/${item.id}`}>
+                    <button className="acceptButton">Detalles</button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </div>
           ))}
         </div>
-        </Container>
-
+      </Container>
     </>
   );
 }
 
 export default DetailOrganization;
+

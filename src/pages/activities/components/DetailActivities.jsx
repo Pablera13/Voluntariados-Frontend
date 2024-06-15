@@ -5,12 +5,13 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getActivityById } from "../../../services/Activities";
 import { format } from "date-fns";
+import RegisterModal from "./RegistarModel";
 
 
 function DetailActivities() {
   let { activitiesId } = useParams();
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading, isError, refetch } = useQuery(
     `activities/${activitiesId}`,
     () => getActivityById(activitiesId)
   );
@@ -44,11 +45,14 @@ function DetailActivities() {
               <p>Cupos máximos: {data.quota}</p>
               <p>Cupos restantes: {data.quota - data.eventvolunteers.length}</p>
               <h5>Dirección</h5>
-              <div className="card mb-2">{data.address}</div>
+              <div className=" mb-2">{data.address}</div>
               <h5>Contacto</h5>
-              <div className="card mb-2">{data.contact}</div>
+              <div className=" mb-2">{data.contact}</div>
 
-              <Button>Inscribirse</Button>
+              <div className="d-flex justify-content-end mt-3">
+
+              <RegisterModal volunteeringId={data.id} refetch={refetch}/>
+              </div>
             </Card.Body>
           </Card>
         )}

@@ -4,37 +4,35 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useAuth } from "../../../context/AuthContext";
 import api from "../../../api/config";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
-function RegisterModal({volunteeringId, refetch}) {
+function RegisterModal({ volunteeringId, refetch }) {
   const [show, setShow] = useState(false);
   const { user } = useAuth();
-  
-  
+
   const handleEnrroll = async () => {
     let newEnrroll = {
       userId: user.volunteer.id,
-      volunteeringId: volunteeringId
-    }
-    const response = await api.post('/volunteering-volunteer', newEnrroll);
-    if(response.status == 200 || response.status == 201){
-      toast.success('Inscrito con éxito!');
+      eventId: volunteeringId,
+    };
+    const response = await api.post("/event-volunteer", newEnrroll);
+    if (response.status == 200 || response.status == 201) {
+      toast.success("Inscrito con éxito!");
       handleClose();
-      refetch()
-      
+      refetch();
     }
-  }
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  console.log(user)
+  console.log(user);
   return (
     <>
       <button className="acceptButton" onClick={handleShow}>
         Inscribirse
       </button>
-      <Toaster position="bottom-center"/>
+      <Toaster position="bottom-center" />
 
       <Modal
         show={show}
